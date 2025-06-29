@@ -92,7 +92,7 @@ const Header = () => {
               
               {/* Mobile Social Links */}
               <div className='flex flex-col items-center gap-4'>
-                <h3 className='text-lg font-semibold'>Follow Us</h3>
+                <h3 className='text-lg font-semibold'>Follow Me</h3>
                 <SocialLinks />
               </div>
             </div>

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { urlFor } from "@/lib/sanity";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import MainPhoto from "@/components/MainPhoto";
 
 async function getData() {
   const query = `
@@ -25,28 +26,36 @@ export default async function Home() {
 
   return (
     
-      <main className="flex flex-col min-h-screen items-center justify-between px-4 py-12 sm:px-8 md:px-16 lg:px-30">
-        <div className="container mx-auto h-full">
+      <main className="flex flex-col min-h-screen items-center justify-between px-4 py-12 sm:px-8 md:px-16 lg:px-30 text-foreground">
+        <div className="container mx-auto h-full px-10">
             <div className="flex flex-col xl:flex-row items-center justify-between xl:pt:8 xl:pb-24">
               <div className="text-center xl:text-left">
-                <span>
+                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold">
                   Writer
                 </span>
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-4 mb-4">
-                  Hey, I'm <br /> <span>Siddhartha Baniya</span>
+                  Hey, I'm <br /> <span className="text-accent-foreground">Siddhartha Baniya</span>
                 </h1>
-                <p className="">
+                <p className="max-w-[500px] mb-9">
                   Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate tempore laboriosam esse sit nesciunt natus, delectus dolorem eum inventore eius cumque explicabo nostrum, eaque voluptatem minima expedita dolores quas! Autem?
                 </p>
+                <div className="flex flex-row items-center gap-5 mb-9">
+                <Button className="bg-accent-foreground text-background hover:bg-transparent hover:text-accent-foreground border-1 hover:border-accent-foreground rounded-4xl p-6">
+                  <Link href={"/about"}>About Me</Link>
+                </Button>
+                <Button variant='outline'className="hover:bg-accent-foreground text-accent-foreground hover:text-white border-1 border-accent-foreground rounded-4xl p-6">
+                  <Link href={"/contact"}>Contact Me</Link>
+                </Button>
+              </div>
               </div>
               <div>
-                image
+                <MainPhoto />
               </div>
             </div>
         </div>
   
 
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-7xl mt-5">
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-7xl mt-5 text-foreground">
     {data.map((post, index) => (
       <Card
         key={index}

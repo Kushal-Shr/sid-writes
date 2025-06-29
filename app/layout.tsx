@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { DM_Sans } from "next/font/google";
+import { DM_Sans, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import { ThemeProvider } from "@/components/themeProvider";
 
-const dm_sans = DM_Sans({
+const roboto_mono = Roboto_Mono({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-dm-sans",
+  variable: "--font-roboto-mono",
 });
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${dm_sans.variable} antialiased`}
+        className={`${roboto_mono.variable} antialiased text-foreground bg-background`}
       >
       <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
         <Header />  
