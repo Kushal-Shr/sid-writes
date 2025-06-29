@@ -39,7 +39,7 @@ export default async function Home() {
                 <p className="max-w-[500px] mb-9">
                   Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate tempore laboriosam esse sit nesciunt natus, delectus dolorem eum inventore eius cumque explicabo nostrum, eaque voluptatem minima expedita dolores quas! Autem?
                 </p>
-                <div className="flex flex-row items-center gap-5 mb-9">
+                <div className="flex flex-row items-center  gap-5 mb-9">
                 <Button className="bg-accent-foreground text-background hover:bg-transparent hover:text-accent-foreground border-1 hover:border-accent-foreground rounded-4xl p-6">
                   <Link href={"/about"}>About Me</Link>
                 </Button>
