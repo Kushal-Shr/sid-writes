@@ -15,8 +15,19 @@ const Header = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false)
   const [isOpen, setIsOpen] = React.useState(false)
+  const [isScrolled, setIsScrolled] = React.useState(false)
 
   React.useEffect(() => setMounted(true), [])
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY
+      setIsScrolled(scrollTop > 50)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const NavLinks = () => (
     <>
@@ -60,17 +71,27 @@ const Header = () => {
   )
 
   return (
-    <header className='w-full p-4 px-6 lg:p-15 lg:px-30 flex justify-between items-center border-1'>
+    <header className={`sticky top-0 min-h-[64px)] will-change-[padding] w-full px-6 lg:px-30 flex justify-between items-center bg-background z-50 transition-all duration-100 ease-in-out overflow-x-hidden ${
+      isScrolled 
+        ? 'py-4 xl:py-4 shadow-md' 
+        : 'py-4 xl:py-6'
+    }`}>
       <Logo />
 
       {/* Desktop Navigation */}
-      <nav className='hidden lg:flex items-center gap-6 text-lg font-semibold border-primary border-2 p-3 px-5 rounded-4xl'>
+      <nav className={`hidden lg:flex items-center gap-6 font-semibold border-primary border-2 rounded-4xl transition-all duration-300 ease-in-out ${
+        isScrolled 
+          ? 'p-2 px-4 text-base gap-4' 
+          : 'p-3 px-5 text-lg gap-6'
+      }`}>
         <NavLinks />
         <ThemeToggle />
       </nav>
 
       {/* Desktop Social Links */}
-      <div className='hidden lg:flex items-center gap-4 p-6'>
+      <div className={`hidden lg:flex items-center transition-all duration-300 ease-in-out ${
+        isScrolled ? 'p-3' : 'p-6'
+      }`}>
         <SocialLinks />
       </div>
 
