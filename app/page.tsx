@@ -54,44 +54,46 @@ export default async function Home() {
         </div>
       </div>
 
-      {/* Best of the Week Section */}
-      <div className="w-full max-w-7xl mt-16">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-4xl font-bold text-foreground">
-            Best of the week
+      {/* Recent Posts */}
+      <div className="w-full max-w-7xl mt-10">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 md:mb-8">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">
+            Recent Posts
           </h2>
           <Link 
             href="/blog" 
-            className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 self-start sm:self-auto"
           >
             See all posts →
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[500px]">
-          {/* Featured Post - Takes up 2/3 width on large screens */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 min-h-[400px] md:min-h-[500px]">
+          {/* Featured Post - Takes up full width on mobile, 2/3 on desktop */}
           {data[0] && (
-            <Card className="lg:col-span-2 relative overflow-hidden group cursor-pointer hover:shadow-xl transition-all duration-300">
+            <Card className="md:col-span-2 lg:col-span-2 relative overflow-hidden group cursor-pointer hover:shadow-xl transition-all duration-300 h-full">
               <Link href={`/blog/${data[0].currentSlug}`} className="block h-full">
-                <div className="relative h-full">
-                  <Image
-                    src={urlFor(data[0].titleImage).url()}
-                    alt={data[0].title}
-                    fill
-                    className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 1024px) 100vw, 66vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                  <div className="absolute top-4 left-4">
-                    <span className="inline-block px-3 py-1 bg-blue-500 text-white text-xs font-medium rounded-full">
-                      Featured
+                <div className="relative h-full min-h-[300px] md:min-h-[400px] lg:min-h-[500px]">
+                  <div className="relative h-full group-hover:scale-102 transition-transform duration-500">
+                    <Image
+                      src={urlFor(data[0].titleImage).url()}
+                      alt={data[0].title}
+                      fill
+                      className="object-cover object-center"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 66vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                  </div>
+                  <div className="absolute top-3 left-3 md:top-4 md:left-4">
+                    <span className="inline-block px-2 py-1 md:px-3 md:py-1 bg-accent-foreground text-background text-xs font-medium rounded-full">
+                      Most Recent
                     </span>
                   </div>
-                  <div className="absolute bottom-6 left-6 right-6">
-                    <h3 className="text-2xl font-bold text-white mb-3 line-clamp-2">
+                  <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 md:right-6">
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-2 md:mb-3 line-clamp-2">
                       {data[0].title}
                     </h3>
-                    <p className="text-gray-200 text-sm line-clamp-2 mb-4">
+                    <p className="text-gray-200 text-sm line-clamp-2 mb-3 md:mb-4">
                       {data[0].smallDescription}
                     </p>
                     <div className="flex items-center gap-2">
@@ -107,59 +109,58 @@ export default async function Home() {
           )}
 
           {/* Right Column - Smaller Cards */}
-          <div className="space-y-6">
-            {/* Promotional Card */}
-            <Card className="bg-gradient-to-br from-teal-100 to-teal-200 dark:from-teal-900 dark:to-teal-800 p-6 relative overflow-hidden">
-              <div className="absolute top-2 right-2">
-                <span className="text-xs bg-white/20 px-2 py-1 rounded">ADS</span>
-              </div>
-              <div className="space-y-3">
-                <div className="text-xs text-teal-600 dark:text-teal-300 font-medium">
-                  Become A BROADCAST MEMBER
-                </div>
-                <h4 className="text-lg font-bold text-teal-900 dark:text-teal-100">
-                  Real talk in a corporate world
-                </h4>
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="bg-transparent border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white"
-                >
-                  Learn more
-                </Button>
-              </div>
-            </Card>
-
+          <div className="flex flex-col gap-4 md:gap-6 h-full md:col-span-1 lg:col-span-1">
             {/* Second Featured Post */}
             {data[1] && (
-              <Card className="relative overflow-hidden group cursor-pointer hover:shadow-lg transition-all duration-300">
-                <Link href={`/blog/${data[1].currentSlug}`} className="block">
-                  <div className="relative h-48">
-                    <Image
-                      src={urlFor(data[1].titleImage).url()}
-                      alt={data[1].title}
-                      fill
-                      className="object-cover object-center group-hover:scale-105 transition-transform duration-300"
-                      sizes="(max-width: 1024px) 100vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                    <div className="absolute top-2 right-2 w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                      <span className="text-white text-xs font-bold">24</span>
+              <Card className="relative overflow-hidden group cursor-pointer hover:shadow-lg transition-all duration-300 flex-1 min-h-[200px] md:min-h-[240px]">
+                <Link href={`/blog/${data[1].currentSlug}`} className="block h-full">
+                  <div className="relative h-full">
+                    <div className="relative h-full group-hover:scale-105 transition-transform duration-300">
+                      <Image
+                        src={urlFor(data[1].titleImage).url()}
+                        alt={data[1].title}
+                        fill
+                        className="object-cover object-center"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 md:from-black/50 to-transparent" />
                     </div>
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <Button 
-                        variant="secondary" 
-                        size="sm"
-                        className="bg-white/90 text-gray-800 hover:bg-white"
-                      >
-                        See all picks →
-                      </Button>
+                    <div className="absolute bottom-3 left-3 right-3 md:bottom-4 md:left-4 md:right-4">
+                      <h4 className="text-white font-semibold text-base md:text-lg line-clamp-2 mb-1 md:mb-2">
+                        {data[1].title}
+                      </h4>
+                      <p className="text-gray-200 text-xs md:text-sm line-clamp-2">
+                        {data[1].smallDescription}
+                      </p>
                     </div>
                   </div>
-                  <div className="p-4">
-                    <h4 className="font-semibold text-sm line-clamp-2 text-foreground">
-                      {data[1].title}
-                    </h4>
+                </Link>
+              </Card>
+            )}
+
+            {/* Third Featured Post */}
+            {data[2] && (
+              <Card className="relative overflow-hidden group cursor-pointer hover:shadow-lg transition-all duration-300 flex-1 min-h-[200px] md:min-h-[240px]">
+                <Link href={`/blog/${data[2].currentSlug}`} className="block h-full">
+                  <div className="relative h-full">
+                    <div className="relative h-full group-hover:scale-105 transition-transform duration-300">
+                      <Image
+                        src={urlFor(data[2].titleImage).url()}
+                        alt={data[2].title}
+                        fill
+                        className="object-cover object-center"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 md:from-black/50 to-transparent" />
+                    </div>
+                    <div className="absolute bottom-3 left-3 right-3 md:bottom-4 md:left-4 md:right-4">
+                      <h4 className="text-white font-semibold text-base md:text-lg line-clamp-2 mb-1 md:mb-2">
+                        {data[2].title}
+                      </h4>
+                      <p className="text-gray-200 text-xs md:text-sm line-clamp-2">
+                        {data[2].smallDescription}
+                      </p>
+                    </div>
                   </div>
                 </Link>
               </Card>
@@ -167,6 +168,7 @@ export default async function Home() {
           </div>
         </div>
       </div>
+
     </main>
   );
 }

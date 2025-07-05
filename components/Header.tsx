@@ -31,26 +31,28 @@ const Header = () => {
 
   const NavLinks = () => (
     <>
-      <Link href='/' onClick={() => setIsOpen(false)}>Home</Link>
-      <Link href='/about' onClick={() => setIsOpen(false)}>About</Link>
-      <Link href='/blog' onClick={() => setIsOpen(false)}>Blog</Link>
-      <Link href='/contact' onClick={() => setIsOpen(false)}>Contact</Link>
+      <Link href='/' onClick={() => setIsOpen(false)} className='hover:text-accent-foreground'>Home</Link>
+      <Link href='/about' onClick={() => setIsOpen(false)} className='hover:text-accent-foreground'>About</Link>
+      <Link href='/blog' onClick={() => setIsOpen(false)} className='hover:text-accent-foreground'>Blog</Link>
+      <Link href='/contact' onClick={() => setIsOpen(false)} className='hover:text-accent-foreground'>Contact</Link>
     </>
   )
 
   const SocialLinks = () => (
     <div className='flex items-center gap-4'>
       <Link href='#'>
-        <TiSocialInstagramCircular className='text-3xl hover:scale-115 transition-all ease duration-200' />
+        <TiSocialInstagramCircular className='text-3xl hover:scale-115 transition-all ease duration-200 hover:text-accent-foreground' />
       </Link>
       <Link href='#'>
-        <TiSocialFacebook className='text-3xl hover:scale-115 transition-all ease duration-200' />
+        <TiSocialFacebook className='text-3xl hover:scale-115 transition-all ease duration-200 hover:text-accent-foreground' />
       </Link>
       <Link href='#'>
-        <TiSocialLinkedin className='text-3xl hover:scale-115 transition-all ease duration-200' />
+        <TiSocialLinkedin className='text-3xl hover:scale-115 transition-all ease duration-200 hover:text-accent-foreground' />
       </Link>
       <Link href='#'>
-        <TiSocialTwitter className='text-3xl hover:scale-115 transition-all ease duration-200' />
+        <svg className="w-5 h-5 hover:text-accent-foreground" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
       </Link>
     </div>
   )
