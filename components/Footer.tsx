@@ -43,13 +43,6 @@ export default function Footer() {
               <Link 
                 href="#" 
                 className="text-muted-foreground hover:text-accent-foreground transition-colors"
-                aria-label="Twitter"
-              >
-                <TiSocialTwitter className="text-2xl" />
-              </Link>
-              <Link 
-                href="#" 
-                className="text-muted-foreground hover:text-accent-foreground transition-colors"
                 aria-label="Email"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
