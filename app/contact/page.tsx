@@ -135,12 +135,6 @@ export default function Contact() {
                   >
                     <TiSocialLinkedin className="text-3xl" />
                   </Link>
-                  <Link 
-                    href="#" 
-                    className="text-muted-foreground hover:text-accent-foreground transition-colors"
-                  >
-                    <TiSocialTwitter className="text-3xl" />
-                  </Link>
                 </div>
               </div>
             </Card>
