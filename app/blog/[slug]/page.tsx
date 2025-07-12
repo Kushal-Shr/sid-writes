@@ -5,15 +5,15 @@ import { client } from "@/lib/sanity";
 import Image from "next/image";
 import { urlFor } from "@/lib/sanity";
 import Link from "next/link";
-import { PortableText } from '@portabletext/react';
+import { PortableText, PortableTextComponents } from '@portabletext/react';
 import { notFound } from "next/navigation";
 
-import { Metadata } from "next";
+import { Metadata } from "next"; // Keep this import
 
 type PageProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 // Define interface for full blog post
@@ -53,8 +53,49 @@ async function getRelatedPosts(currentSlug: string) {
   return data;
 }
 
+// --- FIXED generateMetadata FUNCTION ---
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const { slug } = await params; // Await params first
+    const post = await getData(slug);
+
+    if (!post) {
+        return {
+            title: "Not Found",
+            description: "The page you are looking for does not exist.",
+        };
+    }
+
+    return {
+        title: post.title,
+        description: post.smallDescription,
+        // Add more metadata as needed, e.g., openGraph, twitter
+        openGraph: {
+            title: post.title,
+            description: post.smallDescription,
+            images: [
+                {
+                    url: urlFor(post.titleImage).url(),
+                    width: 800,
+                    height: 600,
+                    alt: post.title,
+                },
+            ],
+            type: "article",
+            // You might want to add a canonical URL here if applicable
+            // url: `https://yourdomain.com/blog/${post.currentSlug}`,
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: post.title,
+            description: post.smallDescription,
+            images: [urlFor(post.titleImage).url()],
+        },
+    };
+}
+// --- END FIXED SECTION ---
+
 // Custom components for PortableText
-const components = {
+const components: PortableTextComponents = {
   types: {
     image: ({ value }: { value: any }) => (
       <div className="my-8 relative w-full h-96 rounded-lg overflow-hidden">
@@ -69,28 +110,28 @@ const components = {
     ),
   },
   block: {
-    h1: ({ children }: { children: React.ReactNode }) => (
-      <h1 className="text-3xl font-bold mt-8 mb-4 text-foreground">{children}</h1>
+    h1: (props: { children?: React.ReactNode }) => (
+      <h1 className="text-3xl font-bold mt-8 mb-4 text-foreground">{props.children}</h1>
     ),
-    h2: ({ children }: { children: React.ReactNode }) => (
-      <h2 className="text-2xl font-semibold mt-6 mb-3 text-foreground">{children}</h2>
+    h2: (props: { children?: React.ReactNode }) => (
+      <h2 className="text-2xl font-semibold mt-6 mb-3 text-foreground">{props.children}</h2>
     ),
-    h3: ({ children }: { children: React.ReactNode }) => (
-      <h3 className="text-xl font-semibold mt-4 mb-2 text-foreground">{children}</h3>
+    h3: (props: { children?: React.ReactNode }) => (
+      <h3 className="text-xl font-semibold mt-4 mb-2 text-foreground">{props.children}</h3>
     ),
-    normal: ({ children }: { children: React.ReactNode }) => (
-      <p className="text-foreground leading-relaxed mb-4">{children}</p>
+    normal: (props: { children?: React.ReactNode }) => (
+      <p className="text-foreground leading-relaxed mb-4">{props.children}</p>
     ),
-    blockquote: ({ children }: { children: React.ReactNode }) => (
+    blockquote: (props: { children?: React.ReactNode }) => (
       <blockquote className="border-l-4 border-accent-foreground pl-4 italic my-6 text-muted-foreground">
-        {children}
+        {props.children}
       </blockquote>
     ),
   },
   marks: {
-    link: ({ children, value }: { children: React.ReactNode; value: { href: string } }) => (
+    link: ({ children, value }: { children?: React.ReactNode; value?: { href?: string } }) => (
       <a
-        href={value.href}
+        href={value?.href ?? "#"}
         className="text-accent-foreground hover:underline"
         target="_blank"
         rel="noopener noreferrer"
@@ -106,19 +147,19 @@ const components = {
     ),
   },
   list: {
-    bullet: ({ children }: { children: React.ReactNode }) => (
-      <ul className="list-disc list-inside mb-4 space-y-1">{children}</ul>
+    bullet: (props) => (
+      <ul className="list-disc list-inside mb-4 space-y-1">{props.children}</ul>
     ),
-    number: ({ children }: { children: React.ReactNode }) => (
-      <ol className="list-decimal list-inside mb-4 space-y-1">{children}</ol>
+    number: (props) => (
+      <ol className="list-decimal list-inside mb-4 space-y-1">{props.children}</ol>
     ),
   },
   listItem: {
-    bullet: ({ children }: { children: React.ReactNode }) => (
-      <li className="text-foreground">{children}</li>
+    bullet: (props) => (
+      <li className="text-foreground">{props.children}</li>
     ),
-    number: ({ children }: { children: React.ReactNode }) => (
-      <li className="text-foreground">{children}</li>
+    number: (props) => (
+      <li className="text-foreground">{props.children}</li>
     ),
   },
 };
@@ -135,8 +176,9 @@ export async function generateStaticParams() {
 export default async function BlogPostPage({
   params,
 }: PageProps) {
-  const data: BlogPost = await getData(params.slug);
-  const relatedPosts: blogCard[] = await getRelatedPosts(params.slug);
+  const { slug } = await params; // Await params first
+  const data: BlogPost = await getData(slug);
+  const relatedPosts: blogCard[] = await getRelatedPosts(slug);
 
   if (!data) {
     notFound();
@@ -187,7 +229,7 @@ export default async function BlogPostPage({
           {/* Article Content */}
           <article className="prose prose-lg max-w-none">
             <div className="text-foreground">
-              <PortableText value={data.content} />
+              <PortableText value={data.content} components={components} /> {/* Added components prop */}
             </div>
           </article>
 
