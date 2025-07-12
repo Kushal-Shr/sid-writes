@@ -10,7 +10,7 @@ import { notFound } from "next/navigation";
 
 import { Metadata } from "next";
 
-type Props = {
+type PageProps = {
   params: {
     slug: string;
   };
@@ -125,7 +125,7 @@ const components = {
 
 export default async function BlogPostPage({
   params,
-}: Props) {
+}: PageProps) {
   const data: BlogPost = await getData(params.slug);
   const relatedPosts: blogCard[] = await getRelatedPosts(params.slug);
 
