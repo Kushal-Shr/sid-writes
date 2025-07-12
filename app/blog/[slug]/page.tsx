@@ -123,6 +123,15 @@ const components = {
   },
 };
 
+export async function generateStaticParams() {
+  const query = `*[_type == "blog"]{ "slug": slug.current }`;
+  const slugs: { slug: string }[] = await client.fetch(query);
+
+  return slugs.map((slug) => ({
+    slug: slug.slug,
+  }));
+}
+
 export default async function BlogPostPage({
   params,
 }: PageProps) {
