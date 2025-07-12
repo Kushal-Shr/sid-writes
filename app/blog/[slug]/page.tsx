@@ -8,6 +8,14 @@ import Link from "next/link";
 import { PortableText } from '@portabletext/react';
 import { notFound } from "next/navigation";
 
+import { Metadata } from "next";
+
+type Props = {
+  params: {
+    slug: string;
+  };
+};
+
 // Define interface for full blog post
 interface BlogPost {
   title: string;
@@ -117,9 +125,7 @@ const components = {
 
 export default async function BlogPostPage({
   params,
-}: {
-  params: { slug: string };
-}) {
+}: Props) {
   const data: BlogPost = await getData(params.slug);
   const relatedPosts: blogCard[] = await getRelatedPosts(params.slug);
 
