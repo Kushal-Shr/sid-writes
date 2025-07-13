@@ -13,7 +13,7 @@ const roboto_mono = Roboto_Mono({
 
 export const metadata: Metadata = {
   title: "Siddhartha Baniya",
-  description: "This is a personal blog website of Siddhartha Baniya",
+  description: "",
 };
 
 export default function RootLayout({
