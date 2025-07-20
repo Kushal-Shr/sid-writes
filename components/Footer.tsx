@@ -82,10 +82,17 @@ export default function Footer() {
 
 
         {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row items-center md:justify-center gap-4 pt-8 border-t border-border">
-          <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} Siddhartha Baniya. All rights reserved.
-          </p>
+        <div className="flex flex-col md:flex-col items-center md:justify-center gap-4 pt-8 border-t border-border">
+          <div className="block">
+            <p className="text-muted-foreground text-sm">
+              © {new Date().getFullYear()} Siddhartha Baniya. All rights reserved.
+            </p>
+          </div>
+          <div className="block">
+            <p className="text-muted-foreground text-sm">
+              Developed by Kushal Shrestha.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
