@@ -33,8 +33,10 @@ const Header = () => {
     <>
       <Link href='/' onClick={() => setIsOpen(false)} className='hover:text-accent-foreground'>Home</Link>
       <Link href='/about' onClick={() => setIsOpen(false)} className='hover:text-accent-foreground'>About</Link>
-      <Link href='/blog' onClick={() => setIsOpen(false)} className='hover:text-accent-foreground'>Blog</Link>
+      <Link href='/blog' onClick={() => setIsOpen(false)} className='hover:text-accent-foreground'>Blogs</Link>
+      <Link href='/project' onClick={() => setIsOpen(false)} className='hover:text-accent-foreground'>Projects</Link>
       <Link href='/contact' onClick={() => setIsOpen(false)} className='hover:text-accent-foreground'>Contact</Link>
+      <Link href='/resume' onClick={() => setIsOpen(false)} className='hover:text-accent-foreground'>Resume</Link>
     </>
   )
 
@@ -68,7 +70,7 @@ const Header = () => {
   )
 
   return (
-    <header className={`sticky top-0 min-h-[64px)] will-change-[padding] w-full px-6 lg:px-30 flex justify-between items-center bg-background z-50 transition-all duration-100 ease-in-out overflow-x-hidden ${
+    <header className={`sticky top-0 min-h-[64px)] will-change-[padding] w-full px-10 lg:px-30 flex justify-between items-center bg-background z-50 transition-all duration-100 ease-in-out overflow-x-hidden ${
       isScrolled 
         ? 'py-4 xl:py-4 shadow-md' 
         : 'py-4 xl:py-6'
@@ -86,11 +88,6 @@ const Header = () => {
       </nav>
 
       {/* Desktop Social Links */}
-      <div className={`hidden lg:flex items-center transition-all duration-300 ease-in-out ${
-        isScrolled ? 'p-3' : 'p-6'
-      }`}>
-        <SocialLinks />
-      </div>
 
       {/* Mobile Navigation */}
       <div className='flex lg:hidden items-center gap-4'>
